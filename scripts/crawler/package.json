@@ -1,0 +1,16 @@
+{
+  "name": "add-sns-accounts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio-httpcli": "^0.7.4",
+    "commander": "^2.20.0",
+    "og-parser": "^1.0.5"
+  }
+}
