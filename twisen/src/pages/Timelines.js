@@ -1,82 +1,71 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
-import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
 import MyAppBar from '../components/MyAppBar';
-import ReactSwipe from 'react-swipe';
-import * as data from '../data.json';
-import SwipeableViews from 'react-swipeable-views';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {Carousel} from 'react-responsive-carousel';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    position: 'relative',
-    overflow: 'auto',
-  },
-  listSection: {
-    backgroundColor: 'inherit',
-  },
-  ul: {
-    backgroundColor: 'inherit',
-    padding: 0,
-  },
-}));
+import * as data from '../data.json';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 export default function Timelines({match}) {
-  const candidates = data.candidates
-    .filter((d) => d.area === match.params.area)
-  const classes = useStyles();
-  let reactSwipeEl;
 
-  const timelines = candidates.map((c, i) => (
+  let sliderRef;
+  const [index, setIndex] = useState(0);
+  const candidates = data.candidates.filter((d) => d.area === match.params.area);
+
+  const handleChange = function(event, newValue) {
+    setIndex(newValue);
+    sliderRef.slickGoTo(newValue);
+  }
+  
+  const tabs = candidates.map((c, i) =>
+    <Tab label={`${c.name}`} key={c.name} />
+  )
+
+  const timelines = candidates.map((c, i) =>
     <div>
-      <Box my={5}>
-        <h3>{c.name}({c.party})</h3>
-        {c.twitter && <a key={c.twitter} style={{'width': '100%'}} className="twitter-timeline" href={c.twitter}>Tweets by {c.name}</a>}
-      </Box>        
-    </div>
-  ));
+      <Box>
+      {candidates[i].twitter && <a className="twitter-timeline" href={candidates[i].twitter}>Tweets by {candidates[i].name}</a>}
+      {!candidates[i].twitter && 'Twitterアカウントがみつかりませんでした'}
+      </Box>   
+    </div>);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
-    <React.Fragment>
-      <MyAppBar></MyAppBar>      
-      <Box mt={10} mx={1}>     
-
-      <h2>{match.params.area}の候補者</h2>     
-
-      <Grid container justify="center" spacing={10}>
-        <Grid item>
-          <Fab onClick={() => reactSwipeEl.prev()} variant="extended">前の候補へ</Fab>
-        </Grid>        
-        <Grid item>
-          <Fab onClick={() => reactSwipeEl.next()} variant="extended">次の候補へ</Fab>
-        </Grid>
-      </Grid>      
-      
-      <ReactSwipe
-          className="carousel"
-          swipeOptions={{ continuous: true }}
-          ref={el => (reactSwipeEl = el)}
+    <React.Fragment>      
+      <AppBar position="fixed" color="default">
+        <Box mt={8} mx={0} boxShadow={0}>
+          <Tabs
+            value={index}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            {tabs}
+          </Tabs>
+        </Box>                
+      </AppBar>
+      <MyAppBar title={match.params.area}></MyAppBar>          
+      <Box mx={1} mt={17}>     
+        <Slider 
+          {...settings}
+          ref={slider => (sliderRef = slider)}
         >
           {timelines}
-        </ReactSwipe>  
+        </Slider>     
       </Box>
     </React.Fragment>
   );
-}
-
-/**
- *      
- *  <button onClick={() => reactSwipeEl.prev()}>前の候補へ</button>
-        <button onClick={() => reactSwipeEl.next()}>次の候補へ</button>    
- * <ReactSwipe
-          className="carousel"
-          swipeOptions={{ continuous: false }}
-          ref={el => (reactSwipeEl = el)}
-        >
-          {timelines}
-        </ReactSwipe>  
- */
+};

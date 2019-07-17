@@ -23,11 +23,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MyAppBar() {
+export default function MyAppBar({title}) {
   const classes = useStyles();
 
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-
 
   return (
     <div className={classes.root}>
@@ -37,7 +36,7 @@ export default function MyAppBar() {
             <MenuIcon onClick={() => setIsDrawerOpen(true)} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            ツイ選
+            ツイ選 {title}
           </Typography>
         </Toolbar>
       </AppBar>
