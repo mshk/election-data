@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.js": "/twisen/static/js/main.4ec1b544.chunk.js",
+    "main.js.map": "/twisen/static/js/main.4ec1b544.chunk.js.map",
+    "runtime~main.js": "/twisen/static/js/runtime~main.ed84efa7.js",
+    "runtime~main.js.map": "/twisen/static/js/runtime~main.ed84efa7.js.map",
+    "static/css/2.0e7d701e.chunk.css": "/twisen/static/css/2.0e7d701e.chunk.css",
+    "static/js/2.ef1413de.chunk.js": "/twisen/static/js/2.ef1413de.chunk.js",
+    "static/js/2.ef1413de.chunk.js.map": "/twisen/static/js/2.ef1413de.chunk.js.map",
+    "index.html": "/twisen/index.html",
+    "precache-manifest.8612f281c30e7f4aed6305bda0cbaead.js": "/twisen/precache-manifest.8612f281c30e7f4aed6305bda0cbaead.js",
+    "service-worker.js": "/twisen/service-worker.js",
+    "static/css/2.0e7d701e.chunk.css.map": "/twisen/static/css/2.0e7d701e.chunk.css.map",
+    "static/media/slick-theme.css": "/twisen/static/media/slick.f97e3bbf.svg"
+  }
+}
