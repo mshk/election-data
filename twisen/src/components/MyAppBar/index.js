@@ -8,20 +8,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
+import * as data from '../../data.json';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+const useStyles = makeStyles({
+  list: {
+    width: 250,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+});
 
 export default function MyAppBar({title}) {
   const classes = useStyles();
@@ -36,7 +31,7 @@ export default function MyAppBar({title}) {
             <MenuIcon onClick={() => setIsDrawerOpen(true)} />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            ツイ選 {title}
+            ツイセン {title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -47,21 +42,16 @@ export default function MyAppBar({title}) {
           onClick={() => setIsDrawerOpen(false)}
           onKeyDown={() => setIsDrawerOpen(false)}
         >
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          <List className={classes.root} >
+          {data.areas.map((area, i) => {
+            return (
+            <ListItem key={`area-${i}`}>
+                <Link href={`/timelines/${area}`}>{area}</Link>
+            </ListItem>
+            );
+          })}
+        </List>
           <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
         </div>
         </Drawer>
     </div>

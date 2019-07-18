@@ -1,7 +1,7 @@
 {
   "name": "twisen",
   "version": "0.1.0",
-  "private": true,
+  "homepage":"https://mshk.github.io/twisen",
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
